@@ -1,31 +1,24 @@
-#Copyright 2022-2023 Hewlett Packard Enterprise Development LP
+# CircleCI configuration file
 version: 2.1
-orbs:
-  slack: circleci/slack@4.12.5
-
-commands:
-  notify_slack_error:
-    steps:
-      - slack/notify:
-          event: fail
-          template: basic_fail_1
-  notify_slack_pass:
-    steps:
-      - slack/notify:
-          event: pass
-          template: basic_success_1
-
-# for AWS creds to download image
-common-context: &common-context
-  context: ecr-6644
-
-attach: &attach
-  attach_workspace:
-    at: ~/project
 
 jobs:
-  print-a-message:
+  # Job one with a unique name
+  say_hello:
     docker:
-      - image: cimg/base:2022.03
+     - image: cimg/base:2022.05
     steps:
-      - run: echo "hello"
+      - run: echo "Say hello to YAML!"
+  # Job two with a unique name
+  say_goodbye:
+    docker:
+     - image: cimg/base:2022.05
+    steps:
+      - run: echo "Say goodbye to YAML!"
+
+workflows:
+  # Name of workflow
+  hello_and_goodbye:
+    # List of jobs that will run
+    jobs:
+      - say_hello
+      - say_goodbye
