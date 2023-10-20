@@ -14,6 +14,7 @@ jobs:
      - image: cimg/base:2022.05
     steps:
       - run: echo "Say goodbye to YAML!"
+      - run: curl www.google.com
 
 workflows:
   # Name of workflow
