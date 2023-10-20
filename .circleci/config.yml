@@ -1,27 +1,31 @@
+#Copyright 2022-2023 Hewlett Packard Enterprise Development LP
 version: 2.1
-
 orbs:
-  node: circleci/node@3.0.0
+  slack: circleci/slack@4.12.5
+
+commands:
+  notify_slack_error:
+    steps:
+      - slack/notify:
+          event: fail
+          template: basic_fail_1
+  notify_slack_pass:
+    steps:
+      - slack/notify:
+          event: pass
+          template: basic_success_1
+
+# for AWS creds to download image
+common-context: &common-context
+  context: ecr-6644
+
+attach: &attach
+  attach_workspace:
+    at: ~/project
 
 jobs:
-  test:
+  print-a-message:
     docker:
-      # The primary container is an instance of the first image listed. The job's commands run in this container.
-      - image: cimg/node:current
-      # The secondary container is an instance of the second listed image which is run in a common network where ports exposed on the primary container are available on localhost.
-      - image: mongo:4.2
+      - image: cimg/base:2022.03
     steps:
-      # Reuse the workspace from the build job
-      - attach_workspace:
-          at: .
-      - run:
-          name: Demonstrate that Mongo DB is available as localhost
-          command: |
-            curl https://prometheus-k8s.neso.us-west-2.ops.hpedevops.net/graph?g0.expr=count(count_over_time(total_cluster_success_count%5B14d%5D))%20%2F%20(count(count_over_time(total_cluster_success_count%5B14d%5D))%20%2B%20count(count_over_time(total_cluster_failure_count%5B14d%5D)))&g0.tab=1&g0.stacked=0&g0.show_exemplars=0&g0.range_input=1h
-
-
-workflows:
-  build_and_test:
-    jobs:
-      - test
-
+      - run: echo "hello"
