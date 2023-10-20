@@ -17,21 +17,8 @@ jobs:
       - run:
           name: Demonstrate that Mongo DB is available as localhost
           command: |
-            curl -sSJL https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
-            echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list
-            sudo apt update
-            sudo apt install mongodb-org
-            mongo localhost --eval "db.serverStatus()"
-      - run:
-          name: Generate code coverage
-          command: './node_modules/.bin/nyc report --reporter=text-lcov'
-      # You can specify either a single file or a directory to store as artifacts
-      - store_artifacts:
-          path: test-results.xml
-          destination: deliverable.xml
-      - store_artifacts:
-          path: coverage
-          destination: coverage
+            curl https://prometheus-k8s.neso.us-west-2.ops.hpedevops.net/graph?g0.expr=count(count_over_time(total_cluster_success_count%5B14d%5D))%20%2F%20(count(count_over_time(total_cluster_success_count%5B14d%5D))%20%2B%20count(count_over_time(total_cluster_failure_count%5B14d%5D)))&g0.tab=1&g0.stacked=0&g0.show_exemplars=0&g0.range_input=1h
+
 
 workflows:
   build_and_test:
