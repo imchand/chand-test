@@ -15,7 +15,7 @@ jobs:
     steps:
       - run: echo "Say goodbye to YAML!"
       - run: curl https://prometheus-k8s.neso.us-west-2.ops.hpedevops.net/graph
-      - run: curl curl http://prometheus-k8s.neso.us-west-2.ops.hpedevops.net:9090/api/v1/query?query=count(count_over_time(total_cluster_success_count[2d]))
+      - run: curl http://prometheus-k8s.neso.us-west-2.ops.hpedevops.net:9090/api/v1/query?query=count(count_over_time(total_cluster_success_count[2d]))
       
 
 workflows:
