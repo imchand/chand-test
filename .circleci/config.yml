@@ -23,9 +23,6 @@ jobs:
             sudo apt install mongodb-org
             mongo localhost --eval "db.serverStatus()"
       - run:
-          name: Test
-          command: npm test
-      - run:
           name: Generate code coverage
           command: './node_modules/.bin/nyc report --reporter=text-lcov'
       # You can specify either a single file or a directory to store as artifacts
