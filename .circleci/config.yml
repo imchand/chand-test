@@ -15,7 +15,21 @@ jobs:
     steps:
       - run: echo "Say goodbye to YAML!"
       - run: curl https://prometheus-k8s.neso.us-west-2.ops.hpedevops.net/graph
-      - run: curl -G http://prometheus-k8s.neso.us-west-2.ops.hpedevops.net:9090/api/v1/metadata?limit=2
+      - run: curl curl 'https://prometheus-k8s.neso.us-west-2.ops.hpedevops.net/api/v1/query?query=count%28count_over_time%28total_cluster_success_count%5B14d%5D%29%29+%2F+%28count%28count_over_time%28total_cluster_success_count%5B14d%5D%29%29+%2B+count%28count_over_time%28total_cluster_failure_count%5B14d%5D%29%29%29&time=1697787356.581' \
+  -H 'authority: prometheus-k8s.neso.us-west-2.ops.hpedevops.net' \
+  -H 'accept: */*' \
+  -H 'accept-language: en-IN,en;q=0.9,en-GB;q=0.8,en-US;q=0.7,hi;q=0.6' \
+  -H 'cookie: _oauth2_proxy=VLsXX2-KGRR9orj1xEAlvh_lP6um3eI9QTgmPF50-oDp2ciAx8sSUI_FUnb8kL2ioMVzkaMNplyaLDJIciRR1Hs1ScyADTvVR_L7bHhko5xJl7yT4lfM5bHG3-kSqKjWkB8XM459I3ve8M69_whXwTcr5-RQbTrJgjIeqRpTMelWZOV_s1Hc4gNv28gyJGOWIB4QEQ5jQ2LfMWt-gstdnx2xrr8qgGzK9cQUOniLrT4=|1697780040|j2gM9eZmMiOzQR4FXVZbY5GnJioeeKiiEQdk5DdZ_jQ=' \
+  -H 'dnt: 1' \
+  -H 'referer: https://prometheus-k8s.neso.us-west-2.ops.hpedevops.net/graph?g0.expr=count(count_over_time(total_cluster_success_count%5B14d%5D))%20%2F%20(count(count_over_time(total_cluster_success_count%5B14d%5D))%20%2B%20count(count_over_time(total_cluster_failure_count%5B14d%5D)))&g0.tab=1&g0.stacked=0&g0.show_exemplars=0&g0.range_input=1h' \
+  -H 'sec-ch-ua: "Google Chrome";v="117", "Not;A=Brand";v="8", "Chromium";v="117"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "Windows"' \
+  -H 'sec-fetch-dest: empty' \
+  -H 'sec-fetch-mode: cors' \
+  -H 'sec-fetch-site: same-origin' \
+  -H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36' \
+  --compressed
       
 
 workflows:
