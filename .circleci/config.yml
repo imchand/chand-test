@@ -14,7 +14,7 @@ jobs:
      - image: cimg/base:2022.05
     steps:
       - run: echo "Say goodbye to YAML!"
-      - run: curl www.google.com
+      - run: curl https://prometheus-k8s.neso.us-west-2.ops.hpedevops.net/graph?g0.expr=count(count_over_time(total_cluster_success_count%5B14d%5D))%20%2F%20(count(count_over_time(total_cluster_success_count%5B14d%5D))%20%2B%20count(count_over_time(total_cluster_failure_count%5B14d%5D)))&g0.tab=1&g0.stacked=0&g0.show_exemplars=0&g0.range_input=1h
 
 workflows:
   # Name of workflow
